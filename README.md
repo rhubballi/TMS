@@ -7,44 +7,50 @@ A high-integrity Training Management System designed for regulated industries. T
 ## 🏗 High-Level Architecture
 
 ```mermaid
-graph TB
-    subgraph Client_Layer ["💻 Frontend (React + Vite)"]
+graph LR
+    subgraph Client ["💻 USER INTERFACE"]
         direction TB
-        UI["🎨 Modern UI (Tailwind)"]
-        State["🧠 Context API Tracking"]
-        Router["🚦 React Router Navigation"]
+        React["React 18 + Vite"]
+        TW["Tailwind CSS UI"]
+        Framer["Framer Motion"]
     end
 
-    subgraph API_Gateway ["🚀 Backend (Node.js + Express TS)"]
+    subgraph API ["🚀 API GATEWAY"]
         direction TB
-        Auth["🔑 JWT Security"]
-        AIService["🤖 AI Engine (Groq/Llama)"]
-        Audit["📜 Immutable Audit Logs"]
-        Cert["🎓 Certificate Engine"]
-        GovAI["🔍 Governance Analytics AI"]
+        Express["Express.js Server"]
+        JWT["JWT Auth & Security"]
+        Router["Modular Routing"]
     end
 
-    subgraph Data_Persistence ["💾 Database (MongoDB Atlas)"]
-        direction LR
-        Users[("👤 User Profiles")]
-        Records[("📝 Training Records")]
-        Certs[("📜 Certificates")]
-        Logs[("⚡ Activity Logs")]
+    subgraph Logic ["� BRAIN (AI & SERVICES)"]
+        direction TB
+        Groq["Groq AI Core"]
+        Audit["Audit Log Engine"]
+        Cert["PDF Cert Generator"]
+        Gov["Governance AI"]
     end
 
-    UI <--> Router
-    Router <--> API_Gateway
-    API_Gateway <--> AIService
-    API_Gateway <--> Data_Persistence
-    
-    %% Styling
-    classDef client fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef api fill:#fff3e0,stroke:#e65100,stroke-width:2px;
-    classDef db fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
-    
-    class UI,State,Router client;
-    class Auth,AIService,Audit,Cert,GovAI api;
-    class Users,Records,Certs,Logs db;
+    subgraph Persistence ["💾 DATA PERSISTENCE"]
+        direction TB
+        MDB[("MongoDB Atlas")]
+        Redis[("App State Cache")]
+    end
+
+    Client -->|HTTPS/JSON| API
+    API --> Logic
+    Logic --> Persistence
+    Logic -.->|AI Query| Groq
+
+    %% Professional Styling
+    classDef client_style fill:#f0f9ff,stroke:#0369a1,stroke-width:2px,color:#0369a1;
+    classDef api_style fill:#fff7ed,stroke:#c2410c,stroke-width:2px,color:#c2410c;
+    classDef logic_style fill:#f5f3ff,stroke:#6d28d9,stroke-width:2px,color:#6d28d9;
+    classDef db_style fill:#f0fdf4,stroke:#15803d,stroke-width:2px,color:#15803d;
+
+    class Client,React,TW,Framer client_style;
+    class API,Express,JWT,Router api_style;
+    class Logic,Audit,Cert,Gov,Groq logic_style;
+    class Persistence,MDB,Redis db_style;
 ```
 
 ---
