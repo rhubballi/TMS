@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Send, Bot, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
+import { ElectronicSignatureModal } from './ElectronicSignatureModal';
 
 interface AIResponse {
     insightSummary: string;
@@ -15,19 +16,30 @@ export const AIGovernanceAssistant: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [response, setResponse] = useState<AIResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isSignatureModalOpen, setIsSignatureModalOpen] = useState(false);
 
-    const handleAskAI = async (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleAskAI = async (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
         if (!query.trim()) return;
 
+        // Open signature modal instead of direct call if not signed
+        setIsSignatureModalOpen(true);
+    };
+
+    const handleConfirmSignature = async (password: string, reason: string) => {
         setLoading(true);
         setError(null);
         try {
-            const res = await api.post('/analytics/ai/ask', { query });
+            const res = await api.post('/analytics/ai/ask', {
+                query,
+                signaturePassword: password,
+                signatureReason: reason
+            });
             setResponse(res.data);
             setQuery('');
         } catch (err: any) {
             setError(err.response?.data?.message || 'Failed to get AI insights.');
+            throw err; // Re-throw to show error in modal
         } finally {
             setLoading(false);
         }
@@ -161,6 +173,14 @@ export const AIGovernanceAssistant: React.FC = () => {
                     </button>
                 </form>
             </div>
+
+            <ElectronicSignatureModal
+                isOpen={isSignatureModalOpen}
+                onClose={() => setIsSignatureModalOpen(false)}
+                onConfirm={handleConfirmSignature}
+                actionName="AI Governance Analytics Query"
+                description="Accessing analytical AI insights requires an electronic signature for regulatory compliance."
+            />
         </div>
     );
 };

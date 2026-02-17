@@ -10,6 +10,7 @@ import notificationRoutes from "./routes/notificationRoutes";
 import trainingMatrixRoutes from "./routes/trainingMatrixRoutes";
 import analyticsRoutes from "./routes/analyticsRoutes";
 import aiAnalyticsRoutes from "./routes/aiAnalyticsRoutes";
+import governanceRoutes from "./routes/governanceRoutes";
 
 
 const app = express();
@@ -29,6 +30,7 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/training-matrix", trainingMatrixRoutes); // Sprint 3: Training Matrix
 app.use("/api/analytics", analyticsRoutes); // Sprint 4: Analytics & Governance
 app.use("/api/analytics/ai", aiAnalyticsRoutes); // Sprint 4: AI Governance Assistant
+app.use("/api/governance", governanceRoutes); // Sprint 5: Governance Config Versioning
 
 app.use("/api", apiRoutes);
 app.use('/uploads', express.static('uploads'));
