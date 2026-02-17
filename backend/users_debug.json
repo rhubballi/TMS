@@ -1,0 +1,49 @@
+[
+  {
+    "id": "6981cf1e4b6669231bfc052d",
+    "name": "admin",
+    "email": "admin@gmail.com",
+    "role": "Administrator",
+    "verified": false
+  },
+  {
+    "id": "6981d44d0eff04866ed2f98c",
+    "name": "Raksha",
+    "email": "raksha@gmail.com",
+    "role": "Trainee",
+    "department": "R&D",
+    "verified": false
+  },
+  {
+    "id": "6981d4830eff04866ed2f99d",
+    "name": "Johan",
+    "email": "johan@gmail.com",
+    "role": "Trainee",
+    "department": "Clinical Research/Affairs",
+    "verified": false
+  },
+  {
+    "id": "6981d4ac0eff04866ed2f9a8",
+    "name": "raj",
+    "email": "raj@gmail.com",
+    "role": "Trainee",
+    "department": "Manufacturing",
+    "verified": false
+  },
+  {
+    "id": "6982d95ef9771ff6297055fe",
+    "name": "Flow Test User",
+    "email": "flow-test@example.com",
+    "role": "Trainee",
+    "department": "IT",
+    "verified": true
+  },
+  {
+    "id": "6982d9a8eb79b61a11b34685",
+    "name": "Raksha Hubballi",
+    "email": "rakshahubballi08@gmail.com",
+    "role": "Trainee",
+    "department": "Quality Assurance",
+    "verified": false
+  }
+]
