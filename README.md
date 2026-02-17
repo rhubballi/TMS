@@ -4,53 +4,31 @@ A high-integrity Training Management System designed for regulated industries. T
 
 ---
 
-## 🏗 High-Level Architecture
+## 🏗 System Architecture (C4 Context)
 
 ```mermaid
-graph LR
-    subgraph Client ["💻 USER INTERFACE"]
-        direction TB
-        React["React 18 + Vite"]
-        TW["Tailwind CSS UI"]
-        Framer["Framer Motion"]
-    end
+C4Context
+    title "TMS System Overview - High Level Architecture"
+    
+    Person(admin, "Administrator", "Governance oversight, document uploads, and compliance monitoring.")
+    Person(user, "Employee", "Training completion, assessment participation, and certificate retrieval.")
+    
+    System_Boundary(tms_boundary, "Training Management System") {
+        System(web_app, "Web Application", "React Frontend + Express Backend providing the core training lifecycle.")
+        SystemDb(storage, "Persistence Layer", "MongoDB (Training Records, Audit Logs) & File Storage (Certificates).")
+    }
+    
+    System_Ext(groq_ai, "Groq AI Engine", "Llama 3.3 70B model for dynamic question generation and governance analysis.")
+    System_Ext(email_svc, "Notification Service", "EmailJS/Nodemailer for assignment and alert delivery.")
 
-    subgraph API ["🚀 API GATEWAY"]
-        direction TB
-        Express["Express.js Server"]
-        JWT["JWT Auth & Security"]
-        Router["Modular Routing"]
-    end
+    Rel(admin, web_app, "Manages & Monitors", "HTTPS")
+    Rel(user, web_app, "Learns & Assesses", "HTTPS")
+    
+    Rel(web_app, groq_ai, "Content Generation", "JSON/Secure API")
+    Rel(web_app, storage, "Reads/Writes", "Mongoose/Local FS")
+    Rel(web_app, email_svc, "Sends Alerts", "SMTP/REST")
 
-    subgraph Logic ["� BRAIN (AI & SERVICES)"]
-        direction TB
-        Groq["Groq AI Core"]
-        Audit["Audit Log Engine"]
-        Cert["PDF Cert Generator"]
-        Gov["Governance AI"]
-    end
-
-    subgraph Persistence ["💾 DATA PERSISTENCE"]
-        direction TB
-        MDB[("MongoDB Atlas")]
-        Redis[("App State Cache")]
-    end
-
-    Client -->|HTTPS/JSON| API
-    API --> Logic
-    Logic --> Persistence
-    Logic -.->|AI Query| Groq
-
-    %% Professional Styling
-    classDef client_style fill:#f0f9ff,stroke:#0369a1,stroke-width:2px,color:#0369a1;
-    classDef api_style fill:#fff7ed,stroke:#c2410c,stroke-width:2px,color:#c2410c;
-    classDef logic_style fill:#f5f3ff,stroke:#6d28d9,stroke-width:2px,color:#6d28d9;
-    classDef db_style fill:#f0fdf4,stroke:#15803d,stroke-width:2px,color:#15803d;
-
-    class Client,React,TW,Framer client_style;
-    class API,Express,JWT,Router api_style;
-    class Logic,Audit,Cert,Gov,Groq logic_style;
-    class Persistence,MDB,Redis db_style;
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 ```
 
 ---
