@@ -7,33 +7,44 @@ A high-integrity Training Management System designed for regulated industries. T
 ## 🏗 High-Level Architecture
 
 ```mermaid
-graph TD
-    subgraph Frontend [React + Vite Client]
-        UI[User Interface]
-        State[Context API / State]
-        Router[React Router]
+graph TB
+    subgraph Client_Layer ["💻 Frontend (React + Vite)"]
+        direction TB
+        UI["🎨 Modern UI (Tailwind)"]
+        State["🧠 Context API Tracking"]
+        Router["🚦 React Router Navigation"]
     end
 
-    subgraph Backend [Node.js + Express API]
-        Auth[Auth Service]
-        AIService[Groq AI Service]
-        Audit[Audit Logging]
-        Cert[Certificate Service]
-        Matrix[Training Matrix]
+    subgraph API_Gateway ["🚀 Backend (Node.js + Express TS)"]
+        direction TB
+        Auth["🔑 JWT Security"]
+        AIService["🤖 AI Engine (Groq/Llama)"]
+        Audit["📜 Immutable Audit Logs"]
+        Cert["🎓 Certificate Engine"]
+        GovAI["🔍 Governance Analytics AI"]
     end
 
-    subgraph Database [MongoDB Atlas]
-        Users[(Users)]
-        Records[(Training Records)]
-        Certs[(Certificates)]
-        Logs[(Audit Logs)]
+    subgraph Data_Persistence ["💾 Database (MongoDB Atlas)"]
+        direction LR
+        Users[("👤 User Profiles")]
+        Records[("📝 Training Records")]
+        Certs[("📜 Certificates")]
+        Logs[("⚡ Activity Logs")]
     end
 
     UI <--> Router
-    Router <--> api[API Service]
-    api <--> Backend
-    Backend <--> Database
-    Backend -- AI Query --> AIService
+    Router <--> API_Gateway
+    API_Gateway <--> AIService
+    API_Gateway <--> Data_Persistence
+    
+    %% Styling
+    classDef client fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef api fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+    classDef db fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
+    
+    class UI,State,Router client;
+    class Auth,AIService,Audit,Cert,GovAI api;
+    class Users,Records,Certs,Logs db;
 ```
 
 ---
