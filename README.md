@@ -40,10 +40,10 @@ graph TB
     Application_Layer --- Integration_Layer
     Application_Layer === Data_Layer
 
-    %% Professional Styling
-    classDef layerBox fill:#f8fafc,stroke:#334155,stroke-width:2px,stroke-dasharray: 5 5;
-    classDef nodeBox fill:#ffffff,stroke:#1e293b,stroke-width:1.5px,color:#0f172a;
-    classDef primaryNode fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e40af;
+    %% Professional Styling (High-Contrast for Visibility)
+    classDef layerBox fill:#f8fafc,stroke:#334155,stroke-width:2px,stroke-dasharray: 5 5,color:#000000;
+    classDef nodeBox fill:#ffffff,stroke:#1e293b,stroke-width:1.5px,color:#000000;
+    classDef primaryNode fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#000000;
     
     class Presentation_Layer,Application_Layer,Integration_Layer,Data_Layer layerBox;
     class Admin,Employee,UI_Components,Auth_Svc,Core_Engine,Cert_Svc,Gov_AI,Groq_AI,Email_Ntf,MongoDB,File_Storage nodeBox;
