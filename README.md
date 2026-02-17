@@ -4,50 +4,26 @@ A high-integrity Training Management System designed for regulated industries. T
 
 ---
 
-## 🏗 System Architecture (Enterprise Layered View)
+## 🏗 High-Level Architecture
 
 ```mermaid
-graph TB
-    subgraph Presentation_Layer ["🌐 PRESENTATION LAYER"]
-        direction LR
-        Admin["👨‍💼 Admin Portal"]
-        Employee["👤 Employee Portal"]
-        UI_Components["🎨 React UI System"]
-    end
+graph LR
+    %% Conceptual Pillars
+    CLIENT(["💻 FRONTEND INTERFACE"])
+    APP(["🚀 APPLICATION BACKEND"])
+    AI_CORE(["🤖 AI ENGINE (GROQ)"])
+    DATABASE(["💾 DATA PERSISTENCE"])
 
-    subgraph Application_Layer ["🚀 APPLICATION & LOGIC"]
-        direction TB
-        Auth_Svc["🔐 Auth & Security"]
-        Core_Engine["⚙️ Core Training Logic"]
-        Cert_Svc["🎓 Certificate Engine"]
-        Gov_AI["🔍 Governance Layer"]
-    end
+    %% Global Connections
+    CLIENT <==>|"Secure API (HTTPS)"| APP
+    APP <==>|"Dynamic Logic"| AI_CORE
+    APP <==>|"Record Tracking"| DATABASE
 
-    subgraph Integration_Layer ["☁️ EXTERNAL INTEGRATIONS"]
-        direction LR
-        Groq_AI["🤖 Groq AI (Llama 3.3)"]
-        Email_Ntf["📧 Notification API"]
-    end
-
-    subgraph Data_Layer ["💾 INFRASTRUCTURE & DATA"]
-        direction LR
-        MongoDB[("🍃 MongoDB Atlas")]
-        File_Storage[("📁 PDF Storage")]
-    end
-
-    %% Multi-Layer Connections
-    Presentation_Layer === Application_Layer
-    Application_Layer --- Integration_Layer
-    Application_Layer === Data_Layer
-
-    %% Professional Styling (High-Contrast for Visibility)
-    classDef layerBox fill:#f8fafc,stroke:#334155,stroke-width:2px,stroke-dasharray: 5 5,color:#000000;
-    classDef nodeBox fill:#ffffff,stroke:#1e293b,stroke-width:1.5px,color:#000000;
-    classDef primaryNode fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#000000;
+    %% Styling for High-Level Professional Look
+    classDef highLevel fill:#ffffff,stroke:#000000,stroke-width:4px,color:#000000,font-weight:bold;
+    classDef connector stroke:#000000,stroke-width:2px;
     
-    class Presentation_Layer,Application_Layer,Integration_Layer,Data_Layer layerBox;
-    class Admin,Employee,UI_Components,Auth_Svc,Core_Engine,Cert_Svc,Gov_AI,Groq_AI,Email_Ntf,MongoDB,File_Storage nodeBox;
-    class Core_Engine,Gov_AI primaryNode;
+    class CLIENT,APP,AI_CORE,DATABASE highLevel;
 ```
 
 ---
