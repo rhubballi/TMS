@@ -4,31 +4,50 @@ A high-integrity Training Management System designed for regulated industries. T
 
 ---
 
-## 🏗 System Architecture (C4 Context)
+## 🏗 System Architecture (Enterprise Layered View)
 
 ```mermaid
-C4Context
-    title "TMS System Overview - High Level Architecture"
-    
-    Person(admin, "Administrator", "Governance oversight, document uploads, and compliance monitoring.")
-    Person(user, "Employee", "Training completion, assessment participation, and certificate retrieval.")
-    
-    System_Boundary(tms_boundary, "Training Management System") {
-        System(web_app, "Web Application", "React Frontend + Express Backend providing the core training lifecycle.")
-        SystemDb(storage, "Persistence Layer", "MongoDB (Training Records, Audit Logs) & File Storage (Certificates).")
-    }
-    
-    System_Ext(groq_ai, "Groq AI Engine", "Llama 3.3 70B model for dynamic question generation and governance analysis.")
-    System_Ext(email_svc, "Notification Service", "EmailJS/Nodemailer for assignment and alert delivery.")
+graph TB
+    subgraph Presentation_Layer ["🌐 PRESENTATION LAYER"]
+        direction LR
+        Admin["👨‍💼 Admin Portal"]
+        Employee["👤 Employee Portal"]
+        UI_Components["🎨 React UI System"]
+    end
 
-    Rel(admin, web_app, "Manages & Monitors", "HTTPS")
-    Rel(user, web_app, "Learns & Assesses", "HTTPS")
-    
-    Rel(web_app, groq_ai, "Content Generation", "JSON/Secure API")
-    Rel(web_app, storage, "Reads/Writes", "Mongoose/Local FS")
-    Rel(web_app, email_svc, "Sends Alerts", "SMTP/REST")
+    subgraph Application_Layer ["🚀 APPLICATION & LOGIC"]
+        direction TB
+        Auth_Svc["🔐 Auth & Security"]
+        Core_Engine["⚙️ Core Training Logic"]
+        Cert_Svc["🎓 Certificate Engine"]
+        Gov_AI["🔍 Governance Layer"]
+    end
 
-    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+    subgraph Integration_Layer ["☁️ EXTERNAL INTEGRATIONS"]
+        direction LR
+        Groq_AI["🤖 Groq AI (Llama 3.3)"]
+        Email_Ntf["📧 Notification API"]
+    end
+
+    subgraph Data_Layer ["💾 INFRASTRUCTURE & DATA"]
+        direction LR
+        MongoDB[("🍃 MongoDB Atlas")]
+        File_Storage[("📁 PDF Storage")]
+    end
+
+    %% Multi-Layer Connections
+    Presentation_Layer === Application_Layer
+    Application_Layer --- Integration_Layer
+    Application_Layer === Data_Layer
+
+    %% Professional Styling
+    classDef layerBox fill:#f8fafc,stroke:#334155,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef nodeBox fill:#ffffff,stroke:#1e293b,stroke-width:1.5px,color:#0f172a;
+    classDef primaryNode fill:#eff6ff,stroke:#2563eb,stroke-width:2px,color:#1e40af;
+    
+    class Presentation_Layer,Application_Layer,Integration_Layer,Data_Layer layerBox;
+    class Admin,Employee,UI_Components,Auth_Svc,Core_Engine,Cert_Svc,Gov_AI,Groq_AI,Email_Ntf,MongoDB,File_Storage nodeBox;
+    class Core_Engine,Gov_AI primaryNode;
 ```
 
 ---
