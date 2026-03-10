@@ -19,6 +19,7 @@ import { AdminAssessmentConfig } from './pages/AdminAssessmentConfig';
 import { AdminAuditLogsPage } from './pages/AdminAuditLogsPage';
 import { HistoryPage } from './pages/HistoryPage';
 import TrainingMatrixPage from './pages/TrainingMatrixPage';
+import GovernanceSettingsPage from './pages/GovernanceSettingsPage';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -60,6 +61,7 @@ export default function App() {
           {/* Admin */}
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardPage /></AdminRoute>} />
           <Route path="/admin/governance-dashboard" element={<AdminRoute><GovernanceDashboardPage /></AdminRoute>} />
+          <Route path="/admin/governance/settings" element={<AdminRoute><GovernanceSettingsPage /></AdminRoute>} />
           <Route path="/admin/training-matrix" element={<AdminRoute><TrainingMatrixPage /></AdminRoute>} />
           <Route path="/admin/compliance/:trainingId/:department" element={<AdminRoute><DepartmentCompliancePage /></AdminRoute>} />
           <Route path="/admin/compliance-drilldown/:type/:id" element={<AdminRoute><ComplianceDrilldownPage /></AdminRoute>} />

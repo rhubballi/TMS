@@ -27,7 +27,8 @@ import {
     Search,
     ChevronDown,
     Calendar,
-    AlertCircle
+    AlertCircle,
+    Settings
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { uploadDocument, getAllTrainingRecords } from '../services/api';
@@ -211,6 +212,13 @@ export const AdminDashboardPage: React.FC = () => {
                             <ShieldCheck className="w-5 h-5" />
                             Governance
                         </button>
+                        <button
+                            onClick={() => navigate('/admin/governance/settings')}
+                            className="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all"
+                        >
+                            <Settings className="w-5 h-5" />
+                            Governance Config
+                        </button>
                     </div>
 
                     {/* Group 2: Management */}
@@ -225,7 +233,6 @@ export const AdminDashboardPage: React.FC = () => {
                         </button>
                         <button
                             onClick={() => navigate('/admin/training-master')}
-                            className="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-600 hover:bg-slate-50 rounded-xl transition-all"
                         >
                             <Database className="w-5 h-5" />
                             Training Registry

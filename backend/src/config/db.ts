@@ -5,7 +5,7 @@ export const connectDB = async () => {
   try {
     await mongoose.connect(uri);
     // eslint-disable-next-line no-console
-    console.log("Connected to MongoDB");
+    console.log(`Connected to MongoDB: ${uri.split('/').pop()?.split('?')[0]}`);
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error("MongoDB connection error:", err);

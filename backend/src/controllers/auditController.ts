@@ -17,6 +17,8 @@ export const getAuditLogs = async (req: Request, res: Response) => {
             endDate
         } = req.query;
 
+        console.log('[DEBUG] Incoming audit logs request:', req.query);
+
         const pageSize = 50;
         const page = Number(pageNumber) || 1;
 
@@ -37,6 +39,9 @@ export const getAuditLogs = async (req: Request, res: Response) => {
         }
 
         const count = await TrainingAuditLog.countDocuments(query);
+        console.log('[DEBUG] Audit query:', JSON.stringify(query));
+        console.log('[DEBUG] Audit logs count:', count);
+
         const logs = await TrainingAuditLog.find(query)
             .populate('user_id', 'name email role department')
             .populate('training_id', 'title code')

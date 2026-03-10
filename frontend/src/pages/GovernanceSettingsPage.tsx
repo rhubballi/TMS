@@ -37,22 +37,34 @@ const GovernanceSettingsPage: React.FC = () => {
 
     const fetchConfigs = async () => {
         setLoading(true);
+        setError(null);
         try {
+            // Handle 404s for current config gracefully (it won't exist on first run)
             const [currentRes, historyRes] = await Promise.all([
-                api.get('/governance/current'),
-                api.get('/governance/history')
+                api.get('/governance/current').catch(() => ({ data: null })),
+                api.get('/governance/history').catch(() => ({ data: [] }))
             ]);
+
             setCurrentConfig(currentRes.data);
             setHistory(historyRes.data);
 
-            // Populate edit fields if current exists
             if (currentRes.data) {
                 setEditName(currentRes.data.name);
                 setEditDescription(currentRes.data.description || '');
                 setEditConfigJson(JSON.stringify(currentRes.data.config, null, 2));
+            } else {
+                // Initial Dummy Data for setup
+                setEditName('Governance Baseline v1');
+                setEditDescription('Initial system-wide governance configuration for regulatory compliance.');
+                setEditConfigJson(JSON.stringify({
+                    compliance_threshold: 80,
+                    ai_governance_strict_mode: true,
+                    audit_retention_years: 5,
+                    max_attempts_lockout: 3
+                }, null, 2));
             }
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Failed to load governance configurations.');
+            setError(err.response?.data?.message || 'Failed to sync with Governance Engine.');
         } finally {
             setLoading(false);
         }

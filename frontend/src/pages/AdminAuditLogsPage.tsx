@@ -119,6 +119,8 @@ export const AdminAuditLogsPage: React.FC = () => {
         if (type.includes('STARTED')) return 'text-blue-600 bg-blue-50 border-blue-100';
         if (type.includes('OVERDUE')) return 'text-amber-600 bg-amber-50 border-amber-100';
         if (type.includes('ASSIGN')) return 'text-indigo-600 bg-indigo-50 border-indigo-100';
+        if (type.includes('SIGNATURE')) return 'text-cyan-600 bg-cyan-50 border-cyan-100';
+        if (type.includes('GOVERNANCE')) return 'text-violet-600 bg-violet-50 border-violet-100';
         return 'text-slate-600 bg-slate-50 border-slate-100';
     };
 
@@ -308,6 +310,9 @@ export const AdminAuditLogsPage: React.FC = () => {
                                                 <option value="ASSESSMENT_FAILED">ASSESSMENT_FAILED</option>
                                                 <option value="TRAINING_OVERDUE">TRAINING_OVERDUE</option>
                                                 <option value="LATE_COMPLETION">LATE_COMPLETION</option>
+                                                <option value="SIGNATURE_CAPTURED">SIGNATURE_CAPTURED</option>
+                                                <option value="GOVERNANCE_CONFIG_UPDATED">GOVERNANCE_CONFIG_UPDATED</option>
+                                                <option value="GOVERNANCE_CONFIG_ROLLED_BACK">GOVERNANCE_CONFIG_ROLLED_BACK</option>
                                             </select>
                                         </div>
                                         <div className="space-y-3">
